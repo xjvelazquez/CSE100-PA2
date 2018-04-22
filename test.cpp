@@ -170,7 +170,7 @@ int main(int argc, char** argv)
     }
     cout << endl;
 
-
+/*
     // Test for inputs with spaces vs no spaces
     cout << "Testing find for input with spaces" << " ";
     d_bst.insert("the spaces between us");
@@ -242,7 +242,7 @@ int main(int argc, char** argv)
     // check frequencies
     dt.insert("harry", 7);
     dt.insert("harry", 2);
-
+*/
     /**************************************************************************************
      **************************************************************************************
      **    __ _             _               _               _         _
