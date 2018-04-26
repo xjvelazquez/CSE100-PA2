@@ -2,7 +2,9 @@
 #include "DictionaryTrie.h"
 
 /* Create a new Dictionary that uses a Trie back end */
-DictionaryTrie::DictionaryTrie(){}
+DictionaryTrie::DictionaryTrie(){
+  root = new MWTNode;
+}
 
 /* Insert a word with its frequency into the dictionary.
  * Return true if the word was inserted, and false if it
@@ -10,7 +12,36 @@ DictionaryTrie::DictionaryTrie(){}
  * invalid (empty string) */
 bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
-  return false;
+  int alphabetSize = 27;
+  MWTNode* curr = root;
+  
+  for (int index = 0; index < word.length(); index++){
+    int letter = word[index] - 'a'; 
+
+    // If the letter is a space
+    if (word[index] == ' '){
+      letter = alphabetSize-1;
+    }
+   
+    // If the pointer at letter is null 
+    if (curr->alphaArray[letter] == NULL){
+	curr->alphaArray[letter] = new MWTNode();
+    }
+    // If pointer already exists, move down the trie.
+    curr = curr->alphaArray[letter];
+  } 
+  
+
+  if (curr->endOfWord == true){
+    if (freq > curr->frequency){  // Updates to new frequency
+      curr->frequency = freq;
+    }
+    return false;  // Word already exists in trie.
+  }
+  
+  curr->endOfWord = true; // Updates endOfWord to declare a word 
+  curr->frequency = freq; // Updates frequency to declare frequency.
+  return true;
 }
 
 /* Return true if word is in the dictionary, and false otherwise */
@@ -50,3 +81,18 @@ std::string DictionaryTrie::checkSpelling(std::string query)
 
 /* Destructor */
 DictionaryTrie::~DictionaryTrie(){}
+
+
+/* Constructor for MWTNode */
+
+MWTNode::MWTNode(){
+  frequency = 0;
+  int alphabetSize = 27;
+  endOfWord = false;
+  for (int index = 0; index < alphabetSize; index++){
+    alphaArray[index] = NULL;
+  }
+}
+
+
+

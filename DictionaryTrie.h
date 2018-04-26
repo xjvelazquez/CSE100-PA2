@@ -9,6 +9,28 @@
 #include <vector>
 #include <string>
 
+
+
+/*
+ * MWTNode class for the DictionaryTrie.
+ */
+class MWTNode{
+public:
+  //Constructor
+  MWTNode();
+
+
+  // Array of char pointers that each contain a letter of alphabet 
+  MWTNode *alphaArray[27]; 
+  
+  // bool to check for word completion
+  bool endOfWord;  
+
+  // Frequency of word if node is end of word.
+  unsigned int frequency; 
+};
+
+
 /**
  *  The class for a dictionary ADT, implemented as a trie
  *  You may implement this class as either a mulit-way trie
@@ -59,6 +81,7 @@ public:
 
 private:
   // Add your own data members and methods here
+  MWTNode *root;
 };
-
+  
 #endif // DICTIONARY_TRIE_H

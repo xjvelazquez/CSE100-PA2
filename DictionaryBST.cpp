@@ -10,17 +10,10 @@ DictionaryBST::DictionaryBST(){
 /* Insert a word into the dictionary. */
 bool DictionaryBST::insert(std::string word)
 {
- // if (word == NULL){
-//	std::cout << "Null case";
- //    return false;
- // }
 
   std::pair<std::set<std::string>::iterator,bool> returnVal = ourSet.insert(word);
-
-  bool val = returnVal.second;
-	std::cout << "val: " << val;
-  if (val == true){
-     return true;
+  if (returnVal.second == true){
+     return true;   // If the insert worked, return true
   }
   return false;
 }
@@ -28,18 +21,13 @@ bool DictionaryBST::insert(std::string word)
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryBST::find(std::string word) const
 {
-//  if (word == NULL){
-//	std::cout << "Null case";
-//     return false;
-//  }
-
   std::set<std::string>::iterator returnVal = ourSet.find(word);
 
 
-  if (returnVal != NULL){
-     return true;
+  if (returnVal == ourSet.end()){
+     return false;   // If the word is not found, return false
   }
-  return false;
+  return true;
 }
 
 /* Destructor */

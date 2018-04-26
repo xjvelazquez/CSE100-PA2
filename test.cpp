@@ -69,7 +69,7 @@ int main(int argc, char** argv)
         t_bst = d_bst.insert(*wit);
         t_ht = d_ht.insert(*wit);
         tt = dt.insert(*wit, 1);
-        //cout << t_bst << " " << t_ht << " "<< tt << "... ";
+        	cout << t_bst << " " << t_ht << " "<< tt << "... ";
         if(!t_bst)
         {
             cout << "FAILED for DictionaryBST... ";
