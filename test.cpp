@@ -56,6 +56,13 @@ int main(int argc, char** argv)
      **                           |_|
      **************************************************************************************
      *************************************************************************************/
+
+    cout << "our tester" << endl;
+    DictionaryTrie ourTrie;
+    load_dict(ourTrie, 
+
+
+
     cout << endl << "Testing CHECKPOINT methods (find & insert)..." << endl;
     cout <<         "=============================================" << endl;
 
@@ -170,7 +177,7 @@ int main(int argc, char** argv)
     }
     cout << endl;
 
-/*
+
     // Test for inputs with spaces vs no spaces
     cout << "Testing find for input with spaces" << " ";
     d_bst.insert("the spaces between us");
@@ -218,6 +225,7 @@ int main(int argc, char** argv)
 
     cout << "Testing insert and find for special characters" << " ";
     bool dtfound3 = dt.find(":cse");
+
     bool dtinsert = dt.insert(":cse", 3);
 
     if(dtfound3 || dtinsert)
@@ -242,7 +250,7 @@ int main(int argc, char** argv)
     // check frequencies
     dt.insert("harry", 7);
     dt.insert("harry", 2);
-*/
+
     /**************************************************************************************
      **************************************************************************************
      **    __ _             _               _               _         _

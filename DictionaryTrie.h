@@ -19,6 +19,8 @@ public:
   //Constructor
   MWTNode();
 
+  //Destructor
+  ~MWTNode();
 
   // Array of char pointers that each contain a letter of alphabet 
   MWTNode *alphaArray[27]; 
@@ -41,6 +43,7 @@ class DictionaryTrie
 {
 public:
 
+ 
   /* Create a new Dictionary that uses a Trie back end */
   DictionaryTrie();
 
@@ -79,9 +82,18 @@ public:
   /* Destructor */
   ~DictionaryTrie();
 
+
+  // Helper function for deleting nodes for destructor
+  void deleteNode(MWTNode *root);
+
+  // Getter for root
+  MWTNode* getRoot();
+
 private:
   // Add your own data members and methods here
+  // Root node 
   MWTNode *root;
+
 };
   
 #endif // DICTIONARY_TRIE_H
