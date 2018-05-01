@@ -1,5 +1,6 @@
 #include "util.h"
 #include "DictionaryTrie.h"
+#include <queue>
 
 /* Create a new Dictionary that uses a Trie back end */
 DictionaryTrie::DictionaryTrie(){
@@ -47,6 +48,7 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
   }
   
   curr->endOfWord = true; // Updates endOfWord to declare a word 
+  curr->word = word; 	  // Updates word member to contain word. 
   curr->frequency = freq; // Updates frequency to declare frequency.
   return true;
 }
@@ -99,7 +101,78 @@ bool DictionaryTrie::find(std::string word) const
  */
 std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
 {
+  int alphabetSize = 27;
+  MWTNode* curr = root;
   std::vector<std::string> words;
+  std::queue<MWTNode*> queue;
+  
+  // Empty string case
+  if (prefix.length() == 0){
+    std::cout << "Invalid Input. Please retry with correct input\n";
+    return words;
+  }
+
+  // search for prefix
+  for (unsigned int index = 0; index < prefix.length(); index++){
+    int letter = prefix[index] - 'a'; 
+
+    // If the letter is a space
+    if (prefix[index] == ' '){
+      letter = alphabetSize-1;
+    }
+
+    // Checks for special chars
+    else if (prefix[index] < 'a' || prefix[index] > 'z'){
+      return words;
+    }
+
+   
+    // If the pointer at letter is null 
+    if (curr->alphaArray[letter] == NULL){
+	std::cout << "Invalid Input. Please retry with correct input\n";
+	return words; // Word does not exist, return empty vector
+    }
+    // If pointer already exists, move down the trie.
+    curr = curr->alphaArray[letter];
+  } 
+ 
+  // adding words into priority_queue
+  std::priority_queue<MWTNode, std::vector<MWTNode*>, Compare> pq;
+
+  MWTNode* rootTmp = curr; // Saves end of prefix as root.
+  
+  // BFS through the tree
+  queue.push(curr);
+  
+  while (!queue.empty()){
+    MWTNode *qTmp = queue.front();
+    if (qTmp->endOfWord == true){
+      pq.push(qTmp);  // Adds node to pq if node is end of word.
+    }
+
+    for (int index = 0; index < alphabetSize; index++){
+      if (qTmp->alphaArray[index] != NULL){
+        queue.push(qTmp->alphaArray[index]);
+      }
+    }
+    queue.pop();  
+  }
+	
+  int queueSize;
+  if (num_completions > pq.size()){
+     queueSize = pq.size();
+  } 					// Number of words to print out.
+  else{
+     queueSize = num_completions;
+  }
+
+  for (int index = 0; index < queueSize; index++){
+    MWTNode* tmp = pq.top();
+    pq.pop();
+    std::string tmpString = tmp->word;
+    words.push_back(tmpString);
+  }
+
   return words;
 }
 
@@ -155,6 +228,5 @@ MWTNode::MWTNode(){
 /* Destructor for MWTNode */
 MWTNode::~MWTNode(){
   }
-
 
 

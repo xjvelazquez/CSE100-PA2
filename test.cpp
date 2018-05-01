@@ -57,12 +57,6 @@ int main(int argc, char** argv)
      **************************************************************************************
      *************************************************************************************/
 
-    cout << "our tester" << endl;
-    DictionaryTrie ourTrie;
-    load_dict(ourTrie, 
-
-
-
     cout << endl << "Testing CHECKPOINT methods (find & insert)..." << endl;
     cout <<         "=============================================" << endl;
 
@@ -272,6 +266,13 @@ int main(int argc, char** argv)
     cout <<         "=======================" << endl;
 
     DictionaryTrie trie;
+
+// LSJDFLJS
+    trie.insert("hall", 100);
+
+    
+
+
     trie.insert("step up", 100);
     trie.insert("steward", 500);
     trie.insert("steer", 100);
@@ -282,14 +283,21 @@ int main(int argc, char** argv)
     trie.insert("step", 510);
     trie.insert("stern", 3000);
 
+
+
     // check that resulting vector holds expected elements
+    // Our test
+    //vector<std::string> completions = trie.predictCompletions("hall",1);
     vector<std::string> completions = trie.predictCompletions("ste", 4);
     cout << "vector contains ";
     for (auto item : completions) {
         cout << item << " ";
     }
     cout << endl;
+    //cout << "want to see: hall" << endl;
     cout << "want to see: stern, step, steward, ste" << endl;
+
+
 
     // check for asking for more words than exist in tree
     completions = trie.predictCompletions("ste", 200);
@@ -301,11 +309,18 @@ int main(int argc, char** argv)
     cout << "want to see: stern step steward ste steer stealth step up" << endl;
 
 
+
+
+
+
     /*************************************************************************************
      *
      * [SPELL CHECKER]
      *
      *************************************************************************************/
+
+
+/*
     cout << endl << "Testing SPELL CHECKER..." << endl;
     cout <<         "========================" << endl;
 
@@ -348,6 +363,9 @@ int main(int argc, char** argv)
     if (sc != "stone") {
         cout << "[Spell checker] Test FAILED: Didn't return 'stone' for 'stzzz' query." << endl;
     }
+
+*/
+
 
     /*************************************************************************************
      *

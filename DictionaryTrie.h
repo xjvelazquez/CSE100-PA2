@@ -11,6 +11,7 @@
 
 
 
+
 /*
  * MWTNode class for the DictionaryTrie.
  */
@@ -29,7 +30,24 @@ public:
   bool endOfWord;  
 
   // Frequency of word if node is end of word.
-  unsigned int frequency; 
+  unsigned int frequency;
+
+  // Word to be saved if node is valid
+  std::string word;  
+};
+
+
+/*  Compare class for priority_queue in DictionaryTrie */
+class Compare{
+public:
+   bool operator() (MWTNode* a, MWTNode* b){
+      if (a->frequency > b->frequency){
+	return false;
+      }
+      else{
+      	return true;
+      }
+   }
 };
 
 
