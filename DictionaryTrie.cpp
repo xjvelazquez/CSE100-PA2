@@ -139,7 +139,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   // adding words into priority_queue
   std::priority_queue<MWTNode, std::vector<MWTNode*>, Compare> pq;
 
-  MWTNode* rootTmp = curr; // Saves end of prefix as root.
+  //MWTNode* rootTmp = curr; // Saves end of prefix as root.
   
   // BFS through the tree
   queue.push(curr);
@@ -172,7 +172,6 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
     std::string tmpString = tmp->word;
     words.push_back(tmpString);
   }
-
   return words;
 }
 
@@ -186,13 +185,79 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
  */
 std::string DictionaryTrie::checkSpelling(std::string query)
 {
-  return "";
+  int alphabetSize = 27;
+  MWTNode *curr = root;
+  std::queue<MWTNode*> queue;
+  std::priority_queue<MWTNode, std::vector<MWTNode*>, Compare> pq;
+  std::vector<std::string> words;
+  MWTNode *qTmp;
+
+  // BFS through the tree
+  queue.push(curr);
+  
+  while (!queue.empty()){
+    qTmp = queue.front();
+    if (qTmp->endOfWord == true){
+      pq.push(qTmp);  // Adds node to pq if node is end of word.
+    }
+
+    for (int index = 0; index < alphabetSize; index++){
+      if (qTmp->alphaArray[index] != NULL){
+        queue.push(qTmp->alphaArray[index]);
+      }
+    }
+    queue.pop();  
+  }
+
+  int hammingDist = 1000;
+  std::string hammingString;
+  int hammingFrequency;
+
+  while (!pq.empty()){
+  int counter = 0;
+  MWTNode* tempNode = pq.top();
+
+    if (query.length() == tempNode->word.length()){
+      // Hamming distance
+      std::string stringTmp = tempNode->word;
+      for (int index2 = 0; index2 < query.length(); index2++){
+        if (query[index2] != stringTmp[index2]){
+           counter++;
+        }
+      }
+
+      // If the word is the found
+      if (counter == 0){
+	return stringTmp;
+      }
+
+      // If current words hamming distance is the smallest so far
+      if (counter == hammingDist){
+	if (tempNode->frequency > hammingFrequency){
+	  hammingString = stringTmp;
+          hammingFrequency = tempNode->frequency;
+        }
+      }
+
+      if (counter < hammingDist){
+        hammingDist = counter;
+        hammingString = stringTmp;
+        hammingFrequency = tempNode->frequency;
+      }
+    }
+   pq.pop();
+  } 
+  return hammingString;
 }
+
+
 
 /* Destructor */
 DictionaryTrie::~DictionaryTrie(){
   deleteNode(this->root);
 }
+
+
 
 void DictionaryTrie::deleteNode(MWTNode *ourRoot){
   MWTNode *curr = ourRoot; // Creates tmp of root

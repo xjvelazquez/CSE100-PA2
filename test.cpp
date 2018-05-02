@@ -268,7 +268,7 @@ int main(int argc, char** argv)
     DictionaryTrie trie;
 
 // LSJDFLJS
-    trie.insert("hall", 100);
+    //trie.insert("hall", 100);
 
     
 
@@ -320,7 +320,7 @@ int main(int argc, char** argv)
      *************************************************************************************/
 
 
-/*
+
     cout << endl << "Testing SPELL CHECKER..." << endl;
     cout <<         "========================" << endl;
 
@@ -341,31 +341,33 @@ int main(int argc, char** argv)
     std::string sc;
 
     // [Spell checker] check that returns empty string when using empty string
-    sc = trie.checkSpelling("");
+    sc = scTrie.checkSpelling("");
     if (sc != "") {
         cout << "[Spell checker] Test FAILED: Didn't return empty string for empty string." << endl;
     }
 
     // [Spell checker] check that returns empty string when passing string not in trie
-    sc = trie.checkSpelling("this string is not in the trie");
+    sc = scTrie.checkSpelling("this string is not in the trie");
     if (sc != "") {
         cout << "[Spell checker] Test FAILED: Didn't return empty string for non-existent string." << endl;
     }
 
     // [Spell checker] check that it returns 'stop' when querying 'stoo'
-    sc = trie.checkSpelling("stoo");
+    sc = scTrie.checkSpelling("stoo");
     if (sc != "stop") {
         cout << "[Spell checker] Test FAILED: Didn't return 'stop' for query 'stoo'." << endl;
     }
 
     // [Spell checker] check that it returns 'stone' when querying 'stpmw'
-    sc = trie.checkSpelling("stzzz");
+    sc = scTrie.checkSpelling("stzzz");
     if (sc != "stone") {
         cout << "[Spell checker] Test FAILED: Didn't return 'stone' for 'stzzz' query." << endl;
     }
 
-*/
-
+    else{
+	cout << "All good mate!" << endl;
+    }
+   
 
     /*************************************************************************************
      *
